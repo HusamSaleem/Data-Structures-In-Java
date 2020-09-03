@@ -210,7 +210,7 @@ public class AvlTree<T extends Comparable<T>> {
 			printInOrder(node.left);
 			printInOrder(node.right);
 		}
-
+ 
 	}
 
 	public void printInOrder(Node node) {
