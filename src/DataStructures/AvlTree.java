@@ -1,5 +1,6 @@
 package DataStructures;
 
+// Self-balancing binary search tree
 public class AvlTree<T extends Comparable<T>> {
 
 	public class Node {
@@ -27,28 +28,12 @@ public class AvlTree<T extends Comparable<T>> {
 	public static void main(String[] args) {
 		AvlTree<Integer> tree = new AvlTree<Integer>(5);
 
-		tree.insert(6);
 		tree.insert(7);
-		tree.insert(3);
+		tree.insert(6);
+		//tree.insert(3);
 
 		tree.printInOrder(tree.root);
 		System.out.println("\nNew root is: " + tree.root.data);
-	}
-
-	private int nodeCount = 0;
-
-	public int height() {
-		if (root == null)
-			return 0;
-		return root.height;
-	}
-
-	public int size() {
-		return nodeCount;
-	}
-
-	public boolean isEmpty() {
-		return (nodeCount == 0);
 	}
 
 	public boolean search(T target) {
@@ -76,7 +61,6 @@ public class AvlTree<T extends Comparable<T>> {
 			return;
 		if (!search(data)) {
 			root = insertItem(data, root);
-			this.nodeCount++;
 		}
 	}
 
@@ -130,14 +114,14 @@ public class AvlTree<T extends Comparable<T>> {
 	}
 
 	private Node rotateLeft(Node node) {
-		Node rightTemp = node.right;
-
-		node.right = rightTemp.left;
-		rightTemp.left = node;
-
+		Node leftTemp = node.right;
+		
+		node.right = leftTemp.left;
+		leftTemp.left = node;
+		
 		update(node);
-		update(rightTemp);
-		return rightTemp;
+		update(leftTemp);
+		return leftTemp;
 	}
 
 	private Node rotateRight(Node node) {
