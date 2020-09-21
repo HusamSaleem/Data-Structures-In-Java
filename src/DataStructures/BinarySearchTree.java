@@ -1,6 +1,5 @@
 package DataStructures;
 public class BinarySearchTree<T extends Comparable<T>> {
-
 	public class Node {
 		T data;
 		Node right, left;
@@ -13,6 +12,20 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	}
 
 	Node root;
+	int size = 0;
+	
+	public static void main(String[] args) {
+		BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>(3);
+		bst.insert(1);
+		bst.insert(6);
+		bst.insert(0);
+		bst.insert(2);
+		bst.insert(6);
+		bst.insert(5);
+		bst.insert(8);
+		
+		bst.levelOrderTraversal(bst.root);
+	}
 
 	public BinarySearchTree(T data) {
 		root = new Node(data);
@@ -20,6 +33,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
 	public void insert(T data) {
 		insertItem(data, root);
+		size++;
 	}
 
 	public void insertItem(T data, Node node) {
@@ -82,6 +96,24 @@ public class BinarySearchTree<T extends Comparable<T>> {
 			printInOrder(node.left);
 			System.out.print(node.data + " ");
 			printInOrder(node.right);
+		}
+	}
+	
+	public void levelOrderTraversal(Node node) {
+		Queue<Node> queue = new Queue<Node>(this.size);
+		
+		queue.enQueue(node);
+		
+		while (!queue.isEmpty()) {
+			Node curNode = queue.deQueue();
+			System.out.printf("%d ", curNode.data);
+
+			if (curNode.left != null) {
+				queue.enQueue(curNode.left);
+			}
+			if (curNode.right != null) {
+				queue.enQueue(curNode.right);
+			}
 		}
 	}
 }
